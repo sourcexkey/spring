@@ -45,21 +45,33 @@ public class IntegrationBookingTest {
 
     @Autowired
     private SessionService sessionService;
-    private User user;
     private Event event;
+    private static User user;
     private DateTime eventDate;
     private Session session;
 
     @Before
     public void setUp() throws Exception {
-        user = userService.register("test@epam.com", "Denys", new DateTime(1993, 3, 21, 0, 0));
+        if (user == null) {
+            user = userService.register("test@epam.com", "Denys", new DateTime(1993, 3, 21, 0, 0));
+        }
         event = eventService.create("testEvent", new BigDecimal(100), EventRating.HIGH);
         Auditorium auditorium = auditoriumService.getAuditoriums().get(0);
         event.setAuditorium(auditorium);
         eventDate = DateTime.now().withHourOfDay(18);
-        session =
-                sessionService
-                        .create(event, auditorium, eventDate, new DateTime(0).withHourOfDay(2));
+        session = sessionService
+                .create(event, auditorium, eventDate, new DateTime(0).withHourOfDay(2));
+    }
+
+    @Test
+    public void testBookTicket() throws Exception {
+        bookingService.bookTicket(user, SEAT, session);
+        List<Ticket> bookedTickets = bookingService.getBookedTickets(user);
+        bookedTickets.forEach(t -> {
+            assertEquals(user.getId(), t.getUserId());
+            assertEquals(SEAT, t.getSeat());
+            assertEquals(session, t.getSession());
+        });
     }
 
     @Test
@@ -76,19 +88,4 @@ public class IntegrationBookingTest {
                              .setScale(2, BigDecimal.ROUND_DOWN));
     }
 
-    @Test
-    public void testBookTicket() throws Exception {
-        bookingService.bookTicket(user, SEAT, session);
-        List<Ticket> bookedTickets = bookingService.getBookedTickets(user);
-        bookedTickets.forEach(t -> {
-            assertEquals(user.getId(), t.getUserId());
-            assertEquals(SEAT, t.getSeat());
-            assertEquals(session, t.getSession());
-        });
-    }
-
-    @Test
-    public void testGetBookedTickets() throws Exception {
-
-    }
 }
