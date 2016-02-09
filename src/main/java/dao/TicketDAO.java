@@ -1,4 +1,4 @@
-package services;
+package dao;
 
 import org.joda.time.DateTime;
 
@@ -7,15 +7,14 @@ import entity.Session;
 import entity.Ticket;
 import entity.User;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
-public interface BookingService {
+/**
+ * @author Denys_Uzhvii
+ */
+public interface TicketDAO {
 
-    BigDecimal getTicketPrice(Event event, DateTime date, int seat, User user);
-
-    void bookTicket(User user, int seat, Session session);
+    Ticket bookTicket(long userId, int seat, Session session);
 
     List<Ticket> getTicketsForEvent(Event event, DateTime date);
 

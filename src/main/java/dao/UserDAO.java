@@ -1,4 +1,4 @@
-package services;
+package dao;
 
 import org.joda.time.DateTime;
 
@@ -6,8 +6,7 @@ import entity.User;
 
 import java.util.List;
 
-public interface UserService {
-
+public interface UserDAO {
     User register(String email, String name, DateTime birthDay);
 
     void remove(User user);

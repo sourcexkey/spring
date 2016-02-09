@@ -1,20 +1,21 @@
 package entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
+
+import org.joda.time.DateTime;
 
 public class Event {
+
     private String name;
     private BigDecimal price;
     private EventRating rating;
-    private Date date;
     private Auditorium auditorium;
 
-    public Event(String name, BigDecimal price, EventRating rating, Date date, Auditorium auditorium) {
+    public Event(String name, BigDecimal price, EventRating rating,
+                 Auditorium auditorium) {
         this.name = name;
         this.price = price;
         this.rating = rating;
-        this.date = date;
         this.auditorium = auditorium;
     }
 
@@ -42,19 +43,45 @@ public class Event {
         this.rating = rating;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Auditorium getAuditorium() {
         return auditorium;
     }
 
     public void setAuditorium(Auditorium auditorium) {
         this.auditorium = auditorium;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Event event = (Event) o;
+
+        if (!name.equals(event.name)) {
+            return false;
+        }
+        if (!price.equals(event.price)) {
+            return false;
+        }
+        if (rating != event.rating) {
+            return false;
+        }
+        return !(auditorium != null ? !auditorium.equals(event.auditorium)
+                                    : event.auditorium != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + price.hashCode();
+        result = 31 * result + rating.hashCode();
+        result = 31 * result + (auditorium != null ? auditorium.hashCode() : 0);
+        return result;
     }
 }

@@ -7,13 +7,9 @@ import entity.Session;
 import entity.Ticket;
 import entity.User;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
-public interface BookingService {
-
-    BigDecimal getTicketPrice(Event event, DateTime date, int seat, User user);
+public interface TicketService {
 
     void bookTicket(User user, int seat, Session session);
 

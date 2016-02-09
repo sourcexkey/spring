@@ -1,15 +1,15 @@
-package services;
+package dao;
 
 import org.joda.time.DateTime;
 
-import entity.Auditorium;
 import entity.Event;
 import entity.EventRating;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 
-public interface EventService {
+public interface EventDAO {
 
     Event create(String name, BigDecimal price, EventRating rating);
 
@@ -24,6 +24,4 @@ public interface EventService {
     List<Event> getForDateRange(DateTime from, DateTime to);
 
     List<Event> getNextEvents(DateTime to);
-
-    Boolean assignAuditorium(Event event, Auditorium auditorium, DateTime date);
 }
