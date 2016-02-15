@@ -1,10 +1,9 @@
-package services.impl;
+package impl;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import dao.EventDAO;
-import dao.SessionDAO;
 import entity.Auditorium;
 import entity.Event;
 import entity.EventRating;

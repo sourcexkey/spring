@@ -1,4 +1,4 @@
-package services.impl;
+package impl;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;

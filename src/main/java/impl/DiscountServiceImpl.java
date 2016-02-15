@@ -1,4 +1,4 @@
-package services.impl;
+package impl;
 
 import entity.Session;
 import entity.User;
