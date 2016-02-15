@@ -5,4 +5,5 @@
     <aop:aspectj-autoproxy/>
     <bean id="counter" class="aspects.CounterAspect"/>
     <bean id="discount" class="aspects.DiscountAspect"/>
+    <bean id="luckyWinner" class="aspects.LuckyWinnerAspect"/>
 </beans>

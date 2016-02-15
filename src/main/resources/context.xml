@@ -2,15 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <context:annotation-config/>
     <import resource="aspect-context.xml"/>
-    <bean id="sessionService" class="impl.SessionServiceImpl"/>
-    <bean id="userService" class="impl.UserServiceImpl"/>
-    <bean id="ticketService" class="impl.TicketServiceImpl"/>
-    <bean id="eventService" class="impl.EventServiceImpl"/>
-    <bean id="discountService" class="impl.DiscountServiceImpl">
+    <bean id="sessionService" class="services.impl.SessionServiceImpl"></bean>
+    <bean id="userService" class="services.impl.UserServiceImpl"/>
+    <bean id="ticketService" class="services.impl.TicketServiceImpl"/>
+    <bean id="eventService" class="services.impl.EventServiceImpl"/>
+    <bean id="discountService" class="services.impl.DiscountServiceImpl">
         <constructor-arg>
             <list>
                 <ref bean="birthdayDiscount"/>
@@ -18,7 +19,7 @@
             </list>
         </constructor-arg>
     </bean>
-    <bean id="auditoriumService" class="impl.AuditoriumServiceImpl">
+    <bean id="auditoriumService" class="services.impl.AuditoriumServiceImpl">
         <constructor-arg>
             <list>
                 <util:properties location="classpath:auditoriums/auditorium1.properties"/>
@@ -27,7 +28,7 @@
             </list>
         </constructor-arg>
     </bean>
-    <bean id="bookingService" class="impl.BookingServiceImpl">
+    <bean id="bookingService" class="services.impl.BookingServiceImpl">
         <constructor-arg name="vipSeatCost" value="2"/>
         <constructor-arg>
             <map>

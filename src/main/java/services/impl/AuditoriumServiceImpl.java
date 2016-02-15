@@ -1,4 +1,4 @@
-package impl;
+package services.impl;
 
 import entity.Auditorium;
 import services.AuditoriumService;
