@@ -1,32 +1,39 @@
 package aspects;
 
 import entity.User;
-import org.aspectj.lang.annotation.After;
+
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import services.DiscountService;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 @Aspect
 public class DiscountAspect {
-    private Map<User, Integer> counter = new HashMap<>();
+
+    private Map<User, Map<Class<?>, Integer>>
+            counter =
+            new HashMap<>();
 
     @AfterReturning(pointcut = "execution(* services.DiscountService.DiscountStrategy.execute(..)) && args(user,..)", returning = "discountSize")
-    public void totalDiscounts(User user, float discountSize) {
+    public void totalDiscounts(JoinPoint jp, User user, float discountSize) {
         if (discountSize != 0.) {
-            Integer amount = counter.getOrDefault(user, 0);
-            counter.put(user, ++amount);
+            Map<Class<?>, Integer> discountsCounter = counter.getOrDefault(user, new HashMap<>());
+            Class<?> discount = jp.getTarget().getClass();
+            Integer amount = discountsCounter.getOrDefault(discount, 0);
+            discountsCounter.put(discount, ++amount);
+            counter.putIfAbsent(user, discountsCounter);
         }
     }
 
-    public int getDiscountsAmountByUser(User user) {
-        return counter.getOrDefault(user, 0);
+    public Map<Class<?>, Integer> getDiscountsAmountByUser(User user) {
+        return counter.getOrDefault(user, Collections.EMPTY_MAP);
     }
 
     public int getTotalDiscounts() {
-        return counter.values().stream().mapToInt(Integer::intValue).sum();
+        return counter.values().stream().mapToInt(
+                discounts -> discounts.values().stream().mapToInt(Integer::intValue).sum()).sum();
     }
 }
