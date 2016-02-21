@@ -1,12 +1,11 @@
-package dao.impl;
-
-import org.joda.time.DateTime;
+package dao.db;
 
 import dao.TicketDAO;
 import entity.Event;
 import entity.Session;
 import entity.Ticket;
 import entity.User;
+import org.joda.time.DateTime;
 
 import java.util.HashMap;
 import java.util.List;

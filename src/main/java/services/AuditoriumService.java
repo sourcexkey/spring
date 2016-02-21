@@ -11,4 +11,6 @@ public interface AuditoriumService {
     int getSeatsNumber(Auditorium auditorium);
 
     Set<Integer> getVipSeats(Auditorium auditorium);
+
+    Auditorium getById(long id);
 }

@@ -1,4 +1,4 @@
-package dao.impl;
+package dao.map;
 
 import org.joda.time.DateTime;
 

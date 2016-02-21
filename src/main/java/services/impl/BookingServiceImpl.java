@@ -1,17 +1,10 @@
 package services.impl;
 
+import entity.*;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import entity.Event;
-import entity.EventRating;
-import entity.Session;
-import entity.Ticket;
-import entity.User;
-import services.BookingService;
-import services.DiscountService;
-import services.SessionService;
-import services.TicketService;
+import services.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,6 +21,8 @@ public class BookingServiceImpl implements BookingService {
     private SessionService sessionService;
     @Autowired
     private DiscountService discountService;
+    @Autowired
+    private AuditoriumService auditoriumService;
 
     public BookingServiceImpl(BigDecimal vipSeatCost,
                               Map<EventRating, Float> ticketPriceByRating) {
@@ -39,7 +34,9 @@ public class BookingServiceImpl implements BookingService {
     public BigDecimal getTicketPrice(Event event, DateTime date, int seat, User user) {
         BigDecimal price = event.getPrice();
         price = price.multiply(BigDecimal.valueOf(ticketPriceByRating.get(event.getRating())));
-        if (event.getAuditorium().getVipSeats().contains(seat)) {
+        Auditorium auditorium = auditoriumService.getById(event.getAuditoriumId());
+        checkAuditorium(auditorium);
+        if (auditorium.getVipSeats().contains(seat)) {
             price = price.multiply(vipSeatCost);
         }
         float discount =
@@ -48,6 +45,12 @@ public class BookingServiceImpl implements BookingService {
             price = price.multiply(new BigDecimal(1).subtract(BigDecimal.valueOf(discount)));
         }
         return price;
+    }
+
+    private void checkAuditorium(Auditorium auditorium) {
+        if(auditorium == null){
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override

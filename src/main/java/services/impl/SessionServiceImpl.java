@@ -18,7 +18,7 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public Session create(Event event, Auditorium auditorium, DateTime date, DateTime duration) {
-        return sessionDAO.create(event, auditorium, date, duration);
+        return sessionDAO.create(event.getId(), auditorium.getId(), date, duration);
     }
 
     @Override

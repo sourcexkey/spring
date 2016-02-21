@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class AuditoriumServiceImpl implements AuditoriumService {
 
     private final Map<String, Auditorium> auditoriumRepo = new HashMap<>();
+    private volatile long id = 1;
 
     public AuditoriumServiceImpl(List<Properties> auditoriums) {
         auditoriums.forEach(p -> {
@@ -24,13 +25,22 @@ public class AuditoriumServiceImpl implements AuditoriumService {
                     .map(s -> Integer.parseInt(s))
                     .filter(vipSeat -> vipSeat > 0 && vipSeat <= seats)
                     .collect(Collectors.toSet());
-            auditoriumRepo.put(name, new Auditorium(name, seats, vipSeats));
+            auditoriumRepo.put(name, new Auditorium(id++, name, seats, vipSeats));
         });
     }
 
     @Override
     public List<Auditorium> getAuditoriums() {
         return auditoriumRepo.values().stream().collect(Collectors.toList());
+    }
+
+    @Override
+    public Auditorium getById(long id) {
+        return auditoriumRepo
+                .values()
+                .stream()
+                .filter(a -> a.getId() == id)
+                .findFirst().get();
     }
 
     @Override

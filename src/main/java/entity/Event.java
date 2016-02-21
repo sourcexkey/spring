@@ -2,21 +2,24 @@ package entity;
 
 import java.math.BigDecimal;
 
-import org.joda.time.DateTime;
-
 public class Event {
-
+    private long id;
     private String name;
     private BigDecimal price;
     private EventRating rating;
-    private Auditorium auditorium;
+    private Long auditoriumId;
 
-    public Event(String name, BigDecimal price, EventRating rating,
-                 Auditorium auditorium) {
+    public Event(long id, String name, BigDecimal price, EventRating rating,
+                 Long auditoriumId) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.rating = rating;
-        this.auditorium = auditorium;
+        this.auditoriumId = auditoriumId;
+    }
+
+    public Event() {
+
     }
 
     public String getName() {
@@ -43,45 +46,44 @@ public class Event {
         this.rating = rating;
     }
 
-    public Auditorium getAuditorium() {
-        return auditorium;
+    public Long getAuditoriumId() {
+        return auditoriumId;
     }
 
-    public void setAuditorium(Auditorium auditorium) {
-        this.auditorium = auditorium;
+    public void setAuditoriumId(Long auditoriumId) {
+        this.auditoriumId = auditoriumId;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Event event = (Event) o;
 
-        if (!name.equals(event.name)) {
-            return false;
-        }
-        if (!price.equals(event.price)) {
-            return false;
-        }
-        if (rating != event.rating) {
-            return false;
-        }
-        return !(auditorium != null ? !auditorium.equals(event.auditorium)
-                                    : event.auditorium != null);
+        if (id != event.id) return false;
+        if (!name.equals(event.name)) return false;
+        if (!price.equals(event.price)) return false;
+        if (rating != event.rating) return false;
+        return auditoriumId != null ? auditoriumId.equals(event.auditoriumId) : event.auditoriumId == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
         result = 31 * result + price.hashCode();
         result = 31 * result + rating.hashCode();
-        result = 31 * result + (auditorium != null ? auditorium.hashCode() : 0);
+        result = 31 * result + (auditoriumId != null ? auditoriumId.hashCode() : 0);
         return result;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

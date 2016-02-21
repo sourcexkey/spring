@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface SessionDAO {
 
-    Session create(Event event, Auditorium auditorium, DateTime date, DateTime duration);
+    Session create(long  eventId, long auditoriumId, DateTime date, DateTime duration);
 
     List<Session> getByEvent(Event event);
 

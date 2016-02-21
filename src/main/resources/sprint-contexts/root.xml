@@ -3,11 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     <context:annotation-config/>
-    <import resource="aspect-context.xml"/>
-    <bean id="sessionService" class="services.impl.SessionServiceImpl"></bean>
+    <context:property-placeholder location="classpath:application.properties"/>
+    <import resource="aspects.xml"/>
+    <import resource="db.xml"/>
+    <bean id="sessionService" class="services.impl.SessionServiceImpl"/>
     <bean id="userService" class="services.impl.UserServiceImpl"/>
     <bean id="ticketService" class="services.impl.TicketServiceImpl"/>
     <bean id="eventService" class="services.impl.EventServiceImpl"/>
@@ -47,8 +48,8 @@
         <constructor-arg value="10"/>
     </bean>
 
-    <bean id="eventDAO" class="dao.impl.EventMapDAO"/>
-    <bean id="sessionDAO" class="dao.impl.SessionMapDAO"/>
-    <bean id="ticketDAO" class="dao.impl.TicketMapDAO"/>
-    <bean id="userDAO" class="dao.impl.UserMapDAO"/>
+    <bean id="eventDAO" class="dao.db.DBEventDAO"/>
+    <bean id="sessionDAO" class="dao.db.DBSessionDAO"/>
+    <bean id="ticketDAO" class="dao.map.TicketMapDAO"/>
+    <bean id="userDAO" class="dao.map.UserMapDAO"/>
 </beans>

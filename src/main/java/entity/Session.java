@@ -4,26 +4,37 @@ import org.joda.time.DateTime;
 
 public class Session {
     private long id;
-    private Event event;
-    private Auditorium auditorium;
+    private long eventId;
+    private long auditoriumId;
     private DateTime date;
     private DateTime duration;
 
-    public Session(long id, Event event, Auditorium auditorium, DateTime date,
-                   DateTime sessionDuration) {
+    public Session(long id, long eventId, long auditoriumId, DateTime date, DateTime duration) {
         this.id = id;
-        this.event = event;
-        this.auditorium = auditorium;
+        this.eventId = eventId;
+        this.auditoriumId = auditoriumId;
         this.date = date;
-        this.duration = sessionDuration;
+        this.duration = duration;
     }
 
-    public Event getEvent() {
-        return event;
+    public Session() {
+
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(long eventId) {
+        this.eventId = eventId;
+    }
+
+    public long getAuditoriumId() {
+        return auditoriumId;
+    }
+
+    public void setAuditoriumId(long auditoriumId) {
+        this.auditoriumId = auditoriumId;
     }
 
     public DateTime getDate() {
@@ -42,47 +53,26 @@ public class Session {
         this.duration = duration;
     }
 
-    public Auditorium getAuditorium() {
-        return auditorium;
-    }
-
-    public void setAuditorium(Auditorium auditorium) {
-        this.auditorium = auditorium;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Session session = (Session) o;
 
-        if (id != session.id) {
-            return false;
-        }
-        if (event != null ? !event.equals(session.event) : session.event != null) {
-            return false;
-        }
-        if (auditorium != null ? !auditorium.equals(session.auditorium)
-                               : session.auditorium != null) {
-            return false;
-        }
-        if (date != null ? !date.equals(session.date) : session.date != null) {
-            return false;
-        }
-        return !(duration != null ? !duration.equals(session.duration) : session.duration != null);
+        if (id != session.id) return false;
+        if (eventId != session.eventId) return false;
+        if (auditoriumId != session.auditoriumId) return false;
+        if (date != null ? !date.equals(session.date) : session.date != null) return false;
+        return duration != null ? duration.equals(session.duration) : session.duration == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (event != null ? event.hashCode() : 0);
-        result = 31 * result + (auditorium != null ? auditorium.hashCode() : 0);
+        result = 31 * result + (int) (eventId ^ (eventId >>> 32));
+        result = 31 * result + (int) (auditoriumId ^ (auditoriumId >>> 32));
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (duration != null ? duration.hashCode() : 0);
         return result;

@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:context.xml")
+@ContextConfiguration(locations = "classpath:sprint-contexts/root.xml")
 public class IntegrationBookingTest {
 
     public static final int SEAT = 10;
@@ -73,7 +73,7 @@ public class IntegrationBookingTest {
         }
         event = eventService.create(TEST_EVENT_NAME, new BigDecimal(100), EventRating.HIGH);
         Auditorium auditorium = auditoriumService.getAuditoriums().get(0);
-        event.setAuditorium(auditorium);
+        event.setAuditoriumId(auditorium.getId());
         eventDate = DateTime.now().withHourOfDay(18);
         session = sessionService
                 .create(event, auditorium, eventDate, new DateTime(0).withHourOfDay(2));
@@ -107,8 +107,8 @@ public class IntegrationBookingTest {
     @Test
     public void testDiscountAspect() {
         eventService.getByName(TEST_EVENT_NAME);
-        Map<Event, Map<String, Integer>> counters = counterAspect.getCounters();
-        Map<String, Integer> eventCounter = counters.get(event);
+        Map<Long, Map<String, Integer>> counters = counterAspect.getCounters();
+        Map<String, Integer> eventCounter = counters.get(event.getId());
         assertEquals(Integer.valueOf(1), eventCounter.get(CounterAspect.GET_EVENT_BY_NAME_KEY));
         eventService.getByName(TEST_EVENT_NAME);
         assertEquals(Integer.valueOf(2), eventCounter.get(CounterAspect.GET_EVENT_BY_NAME_KEY));

@@ -59,7 +59,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public Boolean assignAuditorium(Event event, Auditorium auditorium, DateTime date) {
         if (isAuditoriumFree(auditorium, date)) {
-            event.setAuditorium(auditorium);
+            event.setAuditoriumId(auditorium.getId());
             return true;
         } else {
             return false;
