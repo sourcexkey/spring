@@ -6,4 +6,5 @@
     <bean id="counter" class="aspects.CounterAspect"/>
     <bean id="discount" class="aspects.DiscountAspect"/>
     <bean id="luckyWinner" class="aspects.LuckyWinnerAspect"/>
+    <bean id="countersDAO" class="dao.aspects.db.DBCountersDAO"/>
 </beans>

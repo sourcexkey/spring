@@ -1,9 +1,10 @@
-package dao.db;
+package dao;
 
 public class Constants {
     public static final String LIMIT_OFFSET = " LIMIT :limit OFFSET :offset ";
 
     public static final String ID_PLACEHOLDER = "id";
+    public static final String COUNTER_PLACEHOLDER = "counter";
     public static final String EMAIL_PLACEHOLDER = "email";
     public static final String TITLE_PLACEHOLDER = "title";
     public static final String NAME_PLACEHOLDER = "name";
@@ -22,4 +23,7 @@ public class Constants {
     public static final String AUDITORIUM_PLACEHOLDER = "auditorium";
     public static final String AUDITORIUM_ID_PLACEHOLDER = "auditorium_id";
     public static final String DURATION_PLACEHOLDER = "duration";
+    public static final String SEAT_PLACEHOLDER = "seat";
+    public static final String SESSION_ID_PLACEHOLDER = "session_id";
+    public static final String BIRTHDAY_PLACEHOLDER = "birthday";
 }

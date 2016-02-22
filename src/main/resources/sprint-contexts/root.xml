@@ -50,6 +50,6 @@
 
     <bean id="eventDAO" class="dao.db.DBEventDAO"/>
     <bean id="sessionDAO" class="dao.db.DBSessionDAO"/>
-    <bean id="ticketDAO" class="dao.map.TicketMapDAO"/>
-    <bean id="userDAO" class="dao.map.UserMapDAO"/>
+    <bean id="ticketDAO" class="dao.db.DBTicketDAO"/>
+    <bean id="userDAO" class="dao.db.DBUserDAO"/>
 </beans>

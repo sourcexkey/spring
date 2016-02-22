@@ -19,7 +19,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void bookTicket(User user, int seat, Session session) {
-        ticketDAO.bookTicket(user.getId(), seat, session);
+        ticketDAO.bookTicket(user.getId(), seat, session.getId());
     }
 
     @Override

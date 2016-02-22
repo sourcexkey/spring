@@ -2,9 +2,6 @@ package entity;
 
 import org.joda.time.DateTime;
 
-/**
- * Created by xkey on 07.02.2016.
- */
 public class User {
 
     private long id;
@@ -17,6 +14,14 @@ public class User {
         this.email = email;
         this.name = name;
         setBirthDay(birthDay);
+    }
+
+    public User() {
+
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {

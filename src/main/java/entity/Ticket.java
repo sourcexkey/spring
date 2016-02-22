@@ -5,13 +5,17 @@ public class Ticket {
     private long id;
     private long userId;
     private int seat;
-    private Session session;
+    private long sessionId;
 
-    public Ticket(long id, long userId, int seat, Session session) {
+    public Ticket(long id, long userId, int seat, long sessionId) {
         this.id = id;
         this.userId = userId;
         this.seat = seat;
-        this.session = session;
+        this.sessionId = sessionId;
+    }
+
+    public Ticket() {
+
     }
 
     public long getId() {
@@ -26,16 +30,16 @@ public class Ticket {
         return userId;
     }
 
+    public long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(long sessionId) {
+        this.sessionId = sessionId;
+    }
+
     public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
     }
 
     public int getSeat() {
@@ -66,7 +70,7 @@ public class Ticket {
         if (seat != ticket.seat) {
             return false;
         }
-        return !(session != null ? !session.equals(ticket.session) : ticket.session != null);
+        return sessionId == ticket.sessionId;
 
     }
 
@@ -75,7 +79,7 @@ public class Ticket {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + seat;
-        result = 31 * result + (session != null ? session.hashCode() : 0);
+        result = 31 * result + (int) (sessionId ^ (sessionId >>> 32));
         return result;
     }
 }

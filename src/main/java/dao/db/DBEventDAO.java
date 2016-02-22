@@ -1,5 +1,6 @@
 package dao.db;
 
+import dao.Constants;
 import dao.EventDAO;
 import dao.db.mappers.EventMapper;
 import entity.Event;

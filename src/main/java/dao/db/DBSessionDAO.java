@@ -1,24 +1,22 @@
 package dao.db;
 
+import dao.Constants;
 import dao.SessionDAO;
-import dao.db.mappers.EventMapper;
 import dao.db.mappers.SessionMapper;
 import entity.Auditorium;
 import entity.Event;
 import entity.Session;
-import org.h2.command.dml.Select;
+
 import org.joda.time.DateTime;
 import org.skife.jdbi.v2.GeneratedKeys;
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.IDBI;
 import org.skife.jdbi.v2.Update;
 import org.skife.jdbi.v2.spring.DBIUtil;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
 import org.skife.jdbi.v2.util.LongMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DBSessionDAO implements SessionDAO {
     public static final SessionMapper SESSION_MAPPER = new SessionMapper();

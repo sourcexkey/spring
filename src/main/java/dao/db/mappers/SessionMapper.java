@@ -1,7 +1,6 @@
 package dao.db.mappers;
 
-import dao.db.Constants;
-import entity.Event;
+import dao.Constants;
 import entity.Session;
 import org.joda.time.DateTime;
 import org.skife.jdbi.v2.StatementContext;

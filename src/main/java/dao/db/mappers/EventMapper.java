@@ -1,6 +1,6 @@
 package dao.db.mappers;
 
-import dao.db.Constants;
+import dao.Constants;
 import entity.Event;
 import entity.EventRating;
 import org.skife.jdbi.v2.StatementContext;

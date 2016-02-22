@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import aspects.CounterAspect;
 import aspects.DiscountAspect;
+import dao.aspects.CountersDAO;
 import entity.Auditorium;
 import entity.Event;
 import entity.EventRating;
@@ -86,7 +87,7 @@ public class IntegrationBookingTest {
         bookedTickets.forEach(t -> {
             assertEquals(user.getId(), t.getUserId());
             assertEquals(SEAT, t.getSeat());
-            assertEquals(session, t.getSession());
+            assertEquals(session.getId(), t.getSessionId());
         });
     }
 
@@ -107,13 +108,14 @@ public class IntegrationBookingTest {
     @Test
     public void testDiscountAspect() {
         eventService.getByName(TEST_EVENT_NAME);
-        Map<Long, Map<String, Integer>> counters = counterAspect.getCounters();
-        Map<String, Integer> eventCounter = counters.get(event.getId());
-        assertEquals(Integer.valueOf(1), eventCounter.get(CounterAspect.GET_EVENT_BY_NAME_KEY));
+        Map<String, Integer> eventCounter = counterAspect.getCounterByEventId(event.getId());
+        assertEquals(Integer.valueOf(1), eventCounter.get(CountersDAO.GET_BY_NAME_COUNTER));
         eventService.getByName(TEST_EVENT_NAME);
-        assertEquals(Integer.valueOf(2), eventCounter.get(CounterAspect.GET_EVENT_BY_NAME_KEY));
+        eventCounter = counterAspect.getCounterByEventId(event.getId());
+        assertEquals(Integer.valueOf(2), eventCounter.get(CountersDAO.GET_BY_NAME_COUNTER));
         eventService.getByName(TEST_EVENT_NAME);
-        assertEquals(Integer.valueOf(3), eventCounter.get(CounterAspect.GET_EVENT_BY_NAME_KEY));
+        eventCounter = counterAspect.getCounterByEventId(event.getId());
+        assertEquals(Integer.valueOf(3), eventCounter.get(CountersDAO.GET_BY_NAME_COUNTER));
         eventService.getByName(TEST_EVENT_NAME);
     }
 

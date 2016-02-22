@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface TicketDAO {
 
-    Ticket bookTicket(long userId, int seat, Session session);
+    Ticket bookTicket(long userId, int seat, long sessionId);
 
     List<Ticket> getTicketsForEvent(Event event, DateTime date);
 
